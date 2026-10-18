@@ -313,3 +313,23 @@ ksk-{{ zone }}:
 
 {% endfor %}
 {% endfor %}
+
+# Validate the whole configuration before named reloads it: checking each file
+# alone fails on fragments that use keys defined in another file. A failure
+# blocks the reload, so the running configuration stays in place.
+bind_checkconf:
+  cmd.run:
+    - name: named-checkconf {{ map.config }}
+    - onchanges:
+      - file: bind_config
+      - file: bind_local_config
+{%- if salt['pillar.get']('bind:config:use_extensive_logging', False) %}
+      - file: bind_logging_config
+{%- endif %}
+{%- if grains['os_family'] == 'Debian' %}
+      - file: bind_key_config
+      - file: bind_options_config
+      - file: bind_default_zones
+{%- endif %}
+    - require_in:
+      - service: bind

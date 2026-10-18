@@ -1,6 +1,6 @@
 {% set map = salt['grains.filter_by']({
     'Debian': {
-        'pkgs': ['bind9', 'bind9utils', 'dns-root-data'],
+        'pkgs': ['bind9', 'bind9-utils', 'dns-root-data'],
         'service': 'bind9',
         'config_source_dir': 'bind/files/debian',
         'zones_source_dir': 'zones',
@@ -8,7 +8,7 @@
         'local_config': '/etc/bind/named.conf.local',
         'key_config': '/etc/bind/named.conf.key',
         'options_config': '/etc/bind/named.conf.options',
-        'default_config': '/etc/default/bind9',
+        'default_config': '/etc/default/named',
         'default_zones_config': '/etc/bind/named.conf.default-zones',
         'logging_config': '/etc/bind/named.conf.logging',
         'rndc_client_config': '/etc/bind/rndc.conf',
