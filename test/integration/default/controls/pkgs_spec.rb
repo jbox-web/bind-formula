@@ -14,7 +14,7 @@ when 'suse', 'opensuse'
 when 'debian', 'ubuntu'
   os_packages = %w[
     bind9
-    bind9utils
+    bind9-utils
   ]
 end
 
